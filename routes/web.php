@@ -17,9 +17,12 @@ $router->get('/', function () use ($router) {
 //$router->get('/v1/{source}', 'InitController@index');
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('customers',  ['uses' => 'CustomersController@showAllCustomers']);
+    //$router->get('customers',  ['uses' => 'CustomersController@showAllCustomers']);
+    $router->get('customers',  ['uses' => 'CustomersController@getAll']);
   
-    $router->get('customers/{customerNumber}', ['uses' => 'CustomersController@showOneCustomer']);
+    //$router->get('customers/{customerNumber}', ['uses' => 'CustomersController@showOneCustomer']);
+    $router->get('customers/id/{id}', ['uses' => 'CustomersController@getByID']);
+    $router->get('customers/lastname/{customerName}', ['uses' => 'CustomersController@getByName']);
   
     $router->post('customers', ['uses' => 'CustomersController@create']);
   
