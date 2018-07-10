@@ -42,7 +42,7 @@ class CustomersController extends Controller
         //     'salesRepEmployeeNumber' => 'required', 
         //     'creditLimit' => 'required'
         // ]);
-       //var_dump($request->all());exit;
+        // var_dump($request->all());exit;
 
         //$author = Customers::create($request->all());
         $insert = Customers::insertNew($request->all());
