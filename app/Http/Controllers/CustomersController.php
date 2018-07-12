@@ -44,21 +44,14 @@ class CustomersController extends Controller
         // ]);
         // var_dump($request->all());exit;
 
-        //$author = Customers::create($request->all());
         $insert = Customers::insertNew($request->all());
         return response()->json($insert, 201);
-
-        //return response()->json($author, 201);
     }
 
     public function update($id, Request $request)
     {
-        //$author = Customers::findOrFail($id);
-        //$author->update($request->all());
         $update = Customers::updateRecord($id, $request->all());
         return response()->json($update, 200);
-
-        //return response()->json($author, 200);
     }
 
     public function delete($id)
