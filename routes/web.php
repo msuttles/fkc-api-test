@@ -14,14 +14,12 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
-//$router->get('/v1/{source}', 'InitController@index');
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    //$router->get('customers',  ['uses' => 'CustomersController@showAllCustomers']);
     $router->get('customers',  ['uses' => 'CustomersController@getAll']);
   
-    //$router->get('customers/{customerNumber}', ['uses' => 'CustomersController@showOneCustomer']);
     $router->get('customers/id/{id}', ['uses' => 'CustomersController@getByID']);
+    
     $router->get('customers/lastname/{customerName}', ['uses' => 'CustomersController@getByName']);
   
     $router->post('customers', ['uses' => 'CustomersController@create']);
@@ -30,3 +28,13 @@ $router->group(['prefix' => 'api'], function () use ($router) {
   
     $router->put('customers/{id}', ['uses' => 'CustomersController@update']);
   });
+
+$router->get('/Ranked-Data/', 'CustomersController@GetRankedData'); //Return Ranked Data for all plan types
+
+$router->get('/HMO-Data/', 'CustomersController@GetRankedHMOData'); //Return Ranked Data for HMO plan types
+
+$router->get('/PPO-Data/', 'CustomersController@GetRankedPPOData'); //Return Ranked Data for HMO plan types
+
+$router->get('/LPPO-Data/', 'CustomersController@GetRankedLPPOData'); //Return Ranked Data for HMO plan types
+
+$router->get('/RPPO-Data/', 'CustomersController@GetRankedRPPOData'); //Return Ranked Data for HMO plan types
