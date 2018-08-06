@@ -14,7 +14,7 @@ class HumanaSamples extends Migration
     public function up()
     {
         //
-        Schema::create('ByCounty', function (Blueprint $table) {
+        Schema::create('AllPlanTypes', function (Blueprint $table) {
             $table->integer('Order', 11);
             $table->string('PY Plan', 255);
             $table->string('CY Plan', 255);
@@ -46,7 +46,7 @@ class HumanaSamples extends Migration
             $table->string('Premium', 20);
             $table->integer('Membership', 11);
             $table->string('Lookup', 255);
-            $table->integer('Points', 11;
+            $table->integer('Points', 11);
             $table->integer('Rank', 11);
         });
         Schema::create('LPPO', function (Blueprint $table) {
@@ -64,7 +64,7 @@ class HumanaSamples extends Migration
             $table->string('Premium', 20);
             $table->integer('Membership', 11);
             $table->string('Lookup', 255);
-            $table->integer('Points', 11;
+            $table->integer('Points', 11);
             $table->integer('Rank', 11);
         });
         Schema::create('PPO', function (Blueprint $table) {
@@ -82,7 +82,7 @@ class HumanaSamples extends Migration
             $table->string('Premium', 20);
             $table->integer('Membership', 11);
             $table->string('Lookup', 255);
-            $table->integer('Points', 11;
+            $table->integer('Points', 11);
             $table->integer('Rank', 11);
         });
         Schema::create('RankedData', function (Blueprint $table) {
@@ -100,7 +100,7 @@ class HumanaSamples extends Migration
             $table->string('Premium', 20);
             $table->integer('Membership', 11);
             $table->string('Lookup', 255);
-            $table->integer('Points', 11;
+            $table->integer('Points', 11);
             $table->integer('Rank', 11);
         });
         Schema::create('RankedHMO', function (Blueprint $table) {
@@ -118,7 +118,7 @@ class HumanaSamples extends Migration
             $table->string('Premium', 20);
             $table->integer('Membership', 11);
             $table->string('Lookup', 255);
-            $table->integer('Points', 11;
+            $table->integer('Points', 11);
             $table->integer('Rank', 11);
         });
         Schema::create('RankedPPO', function (Blueprint $table) {
@@ -136,7 +136,7 @@ class HumanaSamples extends Migration
             $table->string('Premium', 20);
             $table->integer('Membership', 11);
             $table->string('Lookup', 255);
-            $table->integer('Points', 11;
+            $table->integer('Points', 11);
             $table->integer('Rank', 11);
         });
         Schema::create('RankedLPPO', function (Blueprint $table) {
@@ -154,7 +154,7 @@ class HumanaSamples extends Migration
             $table->string('Premium', 20);
             $table->integer('Membership', 11);
             $table->string('Lookup', 255);
-            $table->integer('Points', 11;
+            $table->integer('Points', 11);
             $table->integer('Rank', 11);
         });
         Schema::create('RankedRPPO', function (Blueprint $table) {
@@ -172,7 +172,7 @@ class HumanaSamples extends Migration
             $table->string('Premium', 20);
             $table->integer('Membership', 11);
             $table->string('Lookup', 255);
-            $table->integer('Points', 11;
+            $table->integer('Points', 11);
             $table->integer('Rank', 11);
         });
         Schema::create('RPPO', function (Blueprint $table) {
@@ -190,7 +190,7 @@ class HumanaSamples extends Migration
             $table->string('Premium', 20);
             $table->integer('Membership', 11);
             $table->string('Lookup', 255);
-            $table->integer('Points', 11;
+            $table->integer('Points', 11);
             $table->integer('Rank', 11);
         });
     }
@@ -203,7 +203,7 @@ class HumanaSamples extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('ByCounty');
+        Schema::dropIfExists('AllPlanTypes');
         Schema::dropIfExists('HMO');
         Schema::dropIfExists('LPPO');
         Schema::dropIfExists('PPO');

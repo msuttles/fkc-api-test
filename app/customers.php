@@ -43,24 +43,8 @@ class Customers extends Model
         return $sql;
     }
 
-    public static function RankData($table){
-        switch($table){
-            case 'ByCounty':
-            $results = \DB::select('select * from ByCounty');
-                break;
-            case 'HMO':
-            $results = \DB::select('select * from HMO');
-                break;
-            case "PPO":
-            $results = \DB::select('select * from PPO');
-                break;
-            case "LPPO":
-            $results = \DB::select('select * from LPPO');
-                break;
-            case "RPPO":
-            $results = \DB::select('select * from RPPO');
-                break;
-        }
+    public static function RankData($tablename){
+        $results = \DB::select('select * from ' . $tablename);
 		$arrFIPS = [];
 		$dupeCount = 0;
 		foreach ($results as $result) {

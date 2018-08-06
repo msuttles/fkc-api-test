@@ -6,6 +6,7 @@ use App\Customers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\APIHelperController;
 //use App\Http\Controllers\DBConnection;
+use App\Http\Controllers\Schema;
 
 class CustomersController extends Controller
 {
@@ -75,138 +76,37 @@ class CustomersController extends Controller
         return response('Deleted Successfully', 200);
     }
 
-    public function GetRankedData()
+    public function GetRankedData($plantype)
     {
-        $HMO_Data = Customers::RankData('ByCounty');
-        $insert_table = 'RankedData';
-        Customers::TruncateData($insert_table);
-        foreach($HMO_Data as $rankedData){
-            Customers::insertRankedData($rankedData,$insert_table);
+        // get active sources
+        if (empty($plantype)) {
+            $tablename = 'RankedAllPlans';
+        } else {
+            $tablename = 'Ranked'.$plantype;
         }
 
-        $arrHeaders = array('Order', 'PY Plan', 'CY Plan', 'Product Type', 'SNP Type', 'Combo', 'Priority', 'State', 'County', 'StateCounty', 'FIPS', 'Premium', 'Membership', 'Lookup', 'Rank');
+        $Plan_Data = Customers::RankData('AllPlanTypes');
+        Customers::TruncateData($tablename);
+        foreach($Plan_Data as $rankedData){
+            Customers::insertRankedData($rankedData,$tablename);
+        }
+
+        $arrHeaders = \Schema::getColumnListing($tablename);
 
         $date = new \DateTime();
 		$today = $date->format('Ymd');
-        $file = 'Humana_Ranked_Data_Export' . '_' . $today . '.csv';
+        $file = $tablename . '_Data_Export' . '_' . $today . '.csv';
         $fp = fopen(base_path().'/exports/'.$file, 'w');
-        if ($fp && $HMO_Data) {
+        if ($fp && $Plan_Data) {
 			fputcsv($fp, $arrHeaders);
 			
-			foreach ($HMO_Data as $row){
+			foreach ($Plan_Data as $row){
                 $row = (object) $row;
 				fputcsv($fp, get_object_vars($row));
 			}
 		}
 
-        return response()->json($HMO_Data, 200);
+        return response()->json($Plan_Data, 200);
     }
 
-    public function GetRankedHMOData()
-    {
-        $HMO_Data = Customers::RankData('HMO');
-        $insert_table = 'RankedHMO';
-        Customers::TruncateData('RankedData');
-        foreach($HMO_Data as $rankedData){
-            Customers::insertRankedData($rankedData,$insert_table);
-        }
-
-        $arrHeaders = array('Order', 'PY Plan', 'CY Plan', 'Product Type', 'SNP Type', 'Combo', 'Priority', 'State', 'County', 'StateCounty', 'FIPS', 'Premium', 'Membership', 'Lookup', 'Rank');
-
-        $date = new \DateTime();
-		$today = $date->format('Ymd');
-        $file = 'Humana_Ranked_Data_Export' . '_' . $today . '.csv';
-        $fp = fopen(base_path().'/exports/'.$file, 'w');
-        if ($fp && $HMO_Data) {
-			fputcsv($fp, $arrHeaders);
-			
-			foreach ($HMO_Data as $row){
-                $row = (object) $row;
-				fputcsv($fp, get_object_vars($row));
-			}
-		}
-
-        return response()->json($HMO_Data, 200);
-    }
-
-    public function GetRankedPPOData()
-    {
-        $HMO_Data = Customers::RankData('PPO');
-        $insert_table = 'RankedPPO';
-        Customers::TruncateData($insert_table);
-        foreach($HMO_Data as $rankedData){
-            Customers::insertRankedData($rankedData,$insert_table);
-        }
-
-        $arrHeaders = array('Order', 'PY Plan', 'CY Plan', 'Product Type', 'SNP Type', 'Combo', 'Priority', 'State', 'County', 'StateCounty', 'FIPS', 'Premium', 'Membership', 'Lookup', 'Rank');
-
-        $date = new \DateTime();
-		$today = $date->format('Ymd');
-        $file = 'Humana_Ranked_Data_Export' . '_' . $today . '.csv';
-        $fp = fopen(base_path().'/exports/'.$file, 'w');
-        if ($fp && $HMO_Data) {
-			fputcsv($fp, $arrHeaders);
-			
-			foreach ($HMO_Data as $row){
-                $row = (object) $row;
-				fputcsv($fp, get_object_vars($row));
-			}
-		}
-
-        return response()->json($HMO_Data, 200);
-    }
-
-    public function GetRankedLPPOData()
-    {
-        $HMO_Data = Customers::RankData('LPPO');
-        $insert_table = 'RankedLPPO';
-        Customers::TruncateData('RankedLPPO');
-        foreach($HMO_Data as $rankedData){
-            Customers::insertRankedData($rankedData, $insert_table);
-        }
-
-        $arrHeaders = array('Order', 'PY Plan', 'CY Plan', 'Product Type', 'SNP Type', 'Combo', 'Priority', 'State', 'County', 'StateCounty', 'FIPS', 'Premium', 'Membership', 'Lookup', 'Rank');
-
-        $date = new \DateTime();
-		$today = $date->format('Ymd');
-        $file = 'Humana_Ranked_Data_Export' . '_' . $today . '.csv';
-        $fp = fopen(base_path().'/exports/'.$file, 'w');
-        if ($fp && $HMO_Data) {
-			fputcsv($fp, $arrHeaders);
-			
-			foreach ($HMO_Data as $row){
-                $row = (object) $row;
-				fputcsv($fp, get_object_vars($row));
-			}
-		}
-
-        return response()->json($HMO_Data, 200);
-    }
-
-    public function GetRankedRPPOData()
-    {
-        $HMO_Data = Customers::RankData('RPPO');
-        $insert_table = 'RankedRPPO';
-        Customers::TruncateData('RankedData');
-        foreach($HMO_Data as $rankedData){
-            Customers::insertRankedData($rankedData,$insert_table);
-        }
-
-        $arrHeaders = array('Order', 'PY Plan', 'CY Plan', 'Product Type', 'SNP Type', 'Combo', 'Priority', 'State', 'County', 'StateCounty', 'FIPS', 'Premium', 'Membership', 'Lookup', 'Rank');
-
-        $date = new \DateTime();
-		$today = $date->format('Ymd');
-        $file = 'Humana_Ranked_Data_Export' . '_' . $today . '.csv';
-        $fp = fopen(base_path().'/exports/'.$file, 'w');
-        if ($fp && $HMO_Data) {
-			fputcsv($fp, $arrHeaders);
-			
-			foreach ($HMO_Data as $row){
-                $row = (object) $row;
-				fputcsv($fp, get_object_vars($row));
-			}
-		}
-
-        return response()->json($HMO_Data, 200);
-    }
 }
