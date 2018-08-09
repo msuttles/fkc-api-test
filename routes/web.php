@@ -29,12 +29,4 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('customers/{id}', ['uses' => 'CustomersController@update']);
   });
 
-$router->get('/Rank-Data/', 'CustomersController@GetRankedData'); //Return Ranked Data for all plan types
-
-$router->get('/Rank-Data/{plan-type}', 'CustomersController@GetRankedData'); //Return Ranked Data for HMO plan types
-
-// $router->get('/Rank-Data/{plan-type}', 'CustomersController@GetRankedPPOData'); //Return Ranked Data for all PPO plan types
-
-// $router->get('/Rank-Data/{plan-type}', 'CustomersController@GetRankedLPPOData'); //Return Ranked Data for LPPO plan types
-
-// $router->get('/Rank-Data/{plan-type}', 'CustomersController@GetRankedRPPOData'); //Return Ranked Data for RPPO plan types
+$router->get('/Rank-Data/{plan-type}', 'CustomersController@GetRankedData'); // Return Ranked Data for {plan-type} plan types

@@ -79,7 +79,7 @@ class CustomersController extends Controller
     public function GetRankedData($plantype)
     {
         // get active sources
-        if (empty($plantype)) {
+        if ($plantype == 'all') {
             $tablename = 'RankedAllPlans';
         } else {
             $tablename = 'Ranked'.$plantype;

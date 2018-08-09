@@ -33,7 +33,6 @@ class APIHelperController extends Controller
         //     'id.exists' => 'your message'
         // ]);
         \Validator::validate($request->all(),[$Validationfields]);
-
     }
 
     public function FormatJsonResponse($Resource, $request)
